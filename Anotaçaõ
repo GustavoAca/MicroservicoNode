@@ -1,0 +1,9 @@
+instalando typescript
+
+npm install -g typescript
+tsc --init
+
+instalando biblioteca de conversão ts -> js
+npm install --save-dev typescript
+
+npm install --save-dev @types/node
