@@ -1,0 +1,42 @@
+instalando typescript
+
+npm install -g typescript
+tsc --init
+
+instalando biblioteca de conversão ts -> js
+npm install --save-dev typescript
+
+npm install --save-dev @types/node
+
+instalando express para servidor e types
+
+npm install --save express
+
+npm install --save-dev @types/express
+
+executar
+npm run bild
+
+automatizar iniciazação
+npm install --save-dev ts-node-dev
+package.json
+"dev": "ts-node-dev src/index.ts --respawn --transpile-only --ignore-watch node_modules --not-notify "
+________________________________________________________
+2 formas de passar parametros
+
+caro string 
+        user?name = "renam"
+
+caring params
+user/1234
+________________________________________________________
+Route.get('/user/:uuid',
+        : é para indicar que é dinamico e uuid pode ser qualquer nome
+
+________________________________________________________
+pacote para criar constante de codigos http
+
+npm install --save http-status-code
+________________________________________________________
+Insomia 
+testar post
