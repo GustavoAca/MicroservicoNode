@@ -1,4 +1,7 @@
+
 # API DE AUTENTICAÇÃO
+
+Neste projeto iremos criar um microserviço de autenticação que poderá compor a sua caixinha de ferramentas e ser muito útil no seu dia a dia. 🔨🔧
 
 ## Pacotes instalados
 
