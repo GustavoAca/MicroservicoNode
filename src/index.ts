@@ -1,25 +1,24 @@
-
 import express from 'express';
 import errorHandler from './middlewares/error.handler.middlewares';
 import authorizationRoute from './routes/authorization.route';
 import statusRoute from './routes/status.route';
-import userRoute from './routes/users.route';
+import usersRoute from './routes/users.route';
 
 const app = express();
 
-//configurações da aplicação
-app.use(express.json()); //para acessar json
+// Configurações da aplicação
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// configuração de rotas
-app.use(userRoute);
+// Configurações de Rotas
 app.use(statusRoute);
+app.use(usersRoute);
 app.use(authorizationRoute);
 
-//configuração dos hendlers de erro
-app.use(errorHandler);
+// Configuração dos Handlers de Erro
+app.use(errorHandler)
 
-//Inicialização do servidor
+// Inicialização do servidor
 app.listen(3000, () => {
-        console.log('Aplicação executada na porta 3000!');
+    console.log('Aplicação executando na porta 3000!');
 });

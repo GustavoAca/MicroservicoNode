@@ -42,7 +42,7 @@ class UserRepository {
                         SELECT uuid, username
                         FROM appllication_user
                         WHERE username= $1
-                        AND password = crypt($s, 'my_salt')
+                        AND password = crypt($2, 'my_salt')
                 `;
                 const values = [username,password]
                 const { rows } = await db.query<User>(query, values);              

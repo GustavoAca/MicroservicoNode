@@ -2,39 +2,49 @@ import { Router, Request, Response, NextFunction } from "express";
 import ForbiddenError from "../models/errors/forbidden.error.model";
 import userRepositery from "../repositories/user.repositery";
 import JWT from 'jsonwebtoken';
+import { StatusCodes } from "http-status-codes";
 
 const authorizationRoute = Router();
 
-authorizationRoute.post('/token', async (req:Request , res: Response, next:NextFunction) =>{
+authorizationRoute.post('/token', async (req: Request, res: Response, next: NextFunction) => {
 
-        try{
+        try {
+                
                 const authorizationHeader = req.headers['authorization'];
-        
-                if(!authorizationHeader){
-                        throw new ForbiddenError('Credenciais não informadas'); 
+
+                if (!authorizationHeader) {
+                        throw new ForbiddenError('Credenciais não informadas');
                 }
                 // Basic  QWRtaW46QWRtaW4=
-                const [althenticationType, token ] = authorizationHeader.split(' ');
+                const [althenticationType, token] = authorizationHeader.split(' ');
 
-                if(althenticationType !== 'Basic' || !token){
+                if (althenticationType !== 'Basic' || !token) {
                         throw new ForbiddenError('Tipo de autenticação inválido');
                 }
                 const tokenContent = Buffer.from(token, 'base64').toString('utf-8')
                 const [username, password] = tokenContent.split(':');
 
 
-                if(!username || !password){
+                if (!username || !password) {
                         throw new ForbiddenError('Credenciais não preenchidas');
                 }
 
                 const user = await userRepositery.findByUsernameAndPassword(username, password);
+                console.log(user);
+               
+                if (!user) {
+                        throw new ForbiddenError('Usuario ou senha invalidos!');
+                };
                 
-                if(!user)
-        
-                JWT.sign({}, 'my_secret_key',{
-                        subject: user?.uuid
-                } )
+                const jwtPayLoad = {username: user.username};
+                const jwtOptions = {subject: user.uuid};
+                const secretKey = 'my_secret_key';
 
+                const jwt = JWT.sign(jwtPayLoad,secretKey,jwtOptions);
+
+                res.status(StatusCodes.OK).json({ token: jwt});
+
+                
                 /*
                 JWT
                 ----------------------------------------
@@ -46,8 +56,9 @@ authorizationRoute.post('/token', async (req:Request , res: Response, next:NextF
                 'iat' data da criação do token
                 'jti' o ID do token
 
-                */        
-        } catch(error){
+                */
+
+        } catch (error) {
                 next(error);
         }
 
