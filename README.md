@@ -12,6 +12,7 @@ Neste projeto iremos criar um microserviço de autenticação que poderá compor
         npm install --save-dev @types/express
         npm install --save-dev ts-node-dev
         npm install --save http-status-code
+        npm i http-status-codes
 
 ## Dificulades do projeto
 
