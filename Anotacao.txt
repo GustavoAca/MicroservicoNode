@@ -40,3 +40,8 @@ npm install --save http-status-code
 ________________________________________________________
 Insomia 
 testar post
+________________________________________________________
+npm install pg
+biblioteca de bd
+
+npm install --save-dev @types/pg

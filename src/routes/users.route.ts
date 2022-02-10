@@ -1,5 +1,7 @@
 import { NextFunction, Request, Response ,Router  } from 'express';
-import {StatusCodes} from 'http-status-codes'
+import userRepositery from '../repositories/user.repositery';
+
+
 
 //get /users
 //get /user/:uuid
@@ -8,34 +10,34 @@ import {StatusCodes} from 'http-status-codes'
 //delete /user/:uuid
 
 const userRoute = Router()
-userRoute.get('/users', (req: Request, res: Response, next: NextFunction) => {
-        const users=[{ userName: 'Renan'}];
-        res.status(StatusCodes.OK).send(users);
+userRoute.get('/users', async (req: Request, res: Response, next: NextFunction) => {
+        const users = await userRepositery.findAllUser();
+        res.status(200).send(users);
 });
 
-userRoute.get('/users/:uuid', (req:Request <{ uuid: string}>, res: Response, NEXT: NextFunction) => {
+userRoute.get('/users/:uuid',async  (req:Request <{ uuid: string}>, res: Response, NEXT: NextFunction) => {
         const uuid = req.params.uuid;
-        
-        res.status(StatusCodes.OK).send({ uuid });
+        const user =  await userRepositery.findById(uuid);
+        res.status(200).send(user);
 });
 
-userRoute.post('/users',(req: Request, res: Response, next: NextFunction) => {
+userRoute.post('/users', async (req: Request, res: Response, next: NextFunction) => {
         const newUser = req.body;
-        console.log(req.body);
-        res.status(StatusCodes.CREATED).send(newUser);
+        const uuid = await userRepositery.create(newUser);
+        res.status(401).send(uuid);
 });
 
 userRoute.put('/users/:uuid',(req: Request <{ uuid: string}> , res: Response,  next: NextFunction) => {
         const uuid = req.params.uuid;  
         const modifiedUser = req.body;
         modifiedUser.uuid = uuid;
-        res.status(StatusCodes.OK).send({modifiedUser});
+        res.status(200).send({modifiedUser});
         //dessa maneira devolvemos o usuario e o id
 } );
 
 userRoute.delete('/users/:uuid', (req: Request<{ uuid: string}>,res: Response, next: NextFunction ) =>{
 
-        res.sendStatus(StatusCodes.OK);
+        res.sendStatus(200);
 } );
 
 export default userRoute;
