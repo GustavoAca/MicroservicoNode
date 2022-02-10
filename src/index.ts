@@ -1,8 +1,10 @@
 import express from 'express';
+import bearerAthenticationMiddleware from './middlewares/bearer-authentication.middlewares';
 import errorHandler from './middlewares/error.handler.middlewares';
 import authorizationRoute from './routes/authorization.route';
 import statusRoute from './routes/status.route';
 import usersRoute from './routes/users.route';
+
 
 const app = express();
 
