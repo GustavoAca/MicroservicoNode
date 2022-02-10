@@ -45,3 +45,8 @@ npm install pg
 biblioteca de bd
 
 npm install --save-dev @types/pg
+
+________________________________________________________
+biblioteca de erros
+
+npm i http-status-codes
