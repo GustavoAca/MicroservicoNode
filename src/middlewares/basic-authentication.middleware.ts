@@ -1,39 +1,40 @@
-import { Request, Response, NextFunction } from "express";
-import userRepositery from "../repositories/user.repositery";
+import { NextFunction, Request, Response } from "express";
 import ForbiddenError from "../models/errors/forbidden.error.model";
-async function  basicAuthenticationMiddleware(req: Request, res: Response, next:NextFunction){
-    try{
+import userRepositery from "../repositories/user.repositery";
+
+async function basicAuthenticationMiddleware(req: Request, res: Response, next: NextFunction) {
+    try {
         const authorizationHeader = req.headers['authorization'];
 
-                if (!authorizationHeader) {
-                        throw new ForbiddenError('Credenciais não informadas');
-                }
-                // Basic  QWRtaW46QWRtaW4=
-                const [althenticationType, token] = authorizationHeader.split(' ');
+        if (!authorizationHeader) {
+            throw new ForbiddenError('Credenciais não informadas');
+        }
 
-                if (althenticationType !== 'Basic' || !token) {
-                        throw new ForbiddenError('Tipo de autenticação inválido');
-                }
-                const tokenContent = Buffer.from(token, 'base64').toString('utf-8')
-                const [username, password] = tokenContent.split(':');
+        const [authenticationType, token] = authorizationHeader.split(' ');
 
+        if (authenticationType !== 'Basic' || !token) {
+            throw new ForbiddenError('Tipo de authenticação inválido');
+        }
 
-                if (!username || !password) {
-                        throw new ForbiddenError('Credenciais não preenchidas');
-                }
+        const tokenContent = Buffer.from(token, 'base64').toString('utf-8');
 
-                const user = await userRepositery.findByUsernameAndPassword(username, password);
-                console.log(user);
-               
-                if (!user) {
-                        throw new ForbiddenError('Usuario ou senha invalidos!');
-                };
-                req.user = user;
-                next();
+        const [username, password] = tokenContent.split(':');
 
-    } catch(error){
-        next(error)
+        if (!username || !password) {
+            throw new ForbiddenError('Credenciais não preenchidas');
+        }
+
+        const user = await userRepositery.findByUsernameAndPassword(username, password);
+        
+        if (!user) {
+            throw new ForbiddenError('Usuário ou senha inválidos!');
+        }
+
+        req.user = user;
+        next();
+    } catch (error) {
+        next(error);
     }
 }
 
-export default  basicAuthenticationMiddleware;
+export default basicAuthenticationMiddleware;

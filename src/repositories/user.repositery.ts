@@ -15,7 +15,7 @@ class UserRepository {
                 return rows || [];
         }
 
-        async findById(uuid: string): Promise<User> {
+        async findByUuid(uuid: string): Promise<User> {
                 try {
                         const query = `
                         SELECT uuid, username

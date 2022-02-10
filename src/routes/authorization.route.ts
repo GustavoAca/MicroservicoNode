@@ -3,8 +3,12 @@ import ForbiddenError from "../models/errors/forbidden.error.model";
 import userRepositery from "../repositories/user.repositery";
 import JWT from 'jsonwebtoken';
 import { StatusCodes } from "http-status-codes";
+import bearerAthenticationMiddleware from "../middlewares/jwt-authentication.middlewares";
+import jwtAthenticationMiddleware from "../middlewares/jwt-authentication.middlewares";
 
 const authorizationRoute = Router();
+
+
 
 authorizationRoute.post('/token', async (req: Request, res: Response, next: NextFunction) => {
 
@@ -63,6 +67,7 @@ authorizationRoute.post('/token', async (req: Request, res: Response, next: Next
         }
 
 });
+
 
 
 export default authorizationRoute;

@@ -9,5 +9,5 @@ app.get('/status', (req, res, next) => {
     res.status(200).send({ foo: 'bar' });
 });
 app.listen(3000, () => {
-    console.log('Aplcicação executnato na porta 3000!');
+    console.log('Aplcicação executanda na porta 3000!');
 });
