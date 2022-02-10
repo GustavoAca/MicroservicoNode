@@ -6,7 +6,7 @@ CREATE TABLE  appllication_user(
         username VARCHAR NOT NULL,
         password VARCHAR NOT NULL,
         PRIMARY KEY(uuid)
-);
-
+)
+;
 INSERT INTO appllication_user(username, password) VALUES ('Bianca',crypt('Admin','17042021'));
 
