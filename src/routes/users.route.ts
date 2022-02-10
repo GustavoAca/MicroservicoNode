@@ -14,6 +14,8 @@ import userRepositery from '../repositories/user.repositery';
 
 const userRoute = Router()
 userRoute.get('/users', async (req: Request, res: Response, next: NextFunction) => {
+        console.log(req.headers['authorization'])
+        
         const users = await userRepositery.findAllUser();
         res.status(StatusCodes.OK).send(users);
 });

@@ -50,3 +50,16 @@ ________________________________________________________
 biblioteca de erros
 
 npm i http-status-codes
+
+________________________________________________________
+2 Tipos de autenticação
+
+______________________________
+Biblioteca jwt
+
+é um token, composto de 3 partes, um header, payload e um hash
+o que o faz muito bom, ele perminte ver se a informação dentro é valida, toda vez que é mudado um valor ele já indica invalido
+
+npm install jsonwebtoken
+
+npm install --save-dev @types/jsonwebtoken
